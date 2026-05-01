@@ -1,17 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
-import { configure } from 'passmark';
 
 // Load environment variables from .env
 dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-// Configure Passmark to use OpenRouter as AI gateway
-configure({
-  ai: {
-    gateway: 'openrouter',
-  },
-});
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -27,6 +19,7 @@ export default defineConfig({
     baseURL: 'https://protik.eu.org',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    headless: !!process.env.CI,
   },
 
   projects: [

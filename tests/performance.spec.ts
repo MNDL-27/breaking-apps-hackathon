@@ -1,5 +1,15 @@
 import { test, expect } from '@playwright/test';
-import { runSteps } from 'passmark';
+import { configure, runSteps } from 'passmark';
+
+// Configure Passmark to use OpenRouter as AI gateway
+configure({
+  ai: {
+    gateway: 'openrouter',
+  },
+});
+
+// Headless by default; set HEADLESS=0 to watch the browser
+test.use({ headless: process.env.HEADLESS !== '0' });
 
 // ─── 1. Homepage load time ──────────────────────────────────────────────────
 test('Homepage loads and displays content without significant delay', async ({ page }) => {

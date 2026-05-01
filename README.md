@@ -93,7 +93,16 @@ Passmark lets you write tests in plain English instead of dealing with CSS selec
 
 ```typescript
 import { test, expect } from '@playwright/test';
-import { runSteps } from 'passmark';
+import { configure, runSteps } from 'passmark';
+
+// Configure Passmark to use OpenRouter as AI gateway
+configure({
+  ai: {
+    gateway: 'openrouter',
+  },
+});
+
+test.use({ headless: !!process.env.CI });
 
 test('Failed login shows error', async ({ page }) => {
   test.setTimeout(90_000);
